@@ -1,12 +1,12 @@
 import sys
-import  os
-import  os.path
+import os
+import os.path
 import fnmatch
 
 
 if __name__ == "__main__":
 	rootdir = '/home/yang/Desktop/csci544-hw1/'
-	spamtrainingdir = rootdir+'SPAM_training/'
+	spamtrainingdir = rootdir+'SPAM_training2/'
 	spamtrainingfile = open(rootdir+'spam_training.txt','w')
 	for file in os.listdir(spamtrainingdir):
 		if fnmatch.fnmatch(file, 'HAM.*'):

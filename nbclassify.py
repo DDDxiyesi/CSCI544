@@ -19,13 +19,35 @@ def calPofDgivenC(thisline,label):
 	return PofDLabel
 
 
-def classifyz(thisline):
+def classifyz(file,thisline):
 	sortlabel = {}
 	for label in labeldict:
 		sortlabel[label] = calPofDgivenC(thisline,label) + labeldict[label]
 	sortedlabel = sorted(sortlabel.items(),key=lambda e:e[1],reverse=True)
-	resultFile.write(sortedlabel[0][0]+'\n')
-	#print(sortedlabel[0][0])
+	resultoutdict[file]=sortedlabel[0][0]
+	#resultFile.write(sortedlabel[0][0]+'\n')
+
+def CalPredict():
+	Predict_CORRECT={}
+	Predict_SPAM = {}
+	Belong_to_SPAM = {}
+	for label in labeldict:
+		Predict_CORRECT[label]=0
+		Predict_SPAM[label]=0
+		Belong_to_SPAM[label]=0
+
+	for i in range(0,len(sortedoutput)):
+		for label in labeldict:
+			if sortedoutput[i][1] == label:
+				Predict_SPAM[label]+=1
+				if sortedoutput[i][0].split('.')[0] == label:
+					Predict_CORRECT[label]+=1
+			if sortedoutput[i][0].split('.')[0] == label:
+				Belong_to_SPAM[label] +=1
+	for label in labeldict:
+		print(str(Predict_CORRECT[label]/Predict_SPAM[label])+str(label))
+		print(str(Predict_CORRECT[label]/Belong_to_SPAM[label])+str(label))
+	return
 
 
 
@@ -68,7 +90,7 @@ if __name__ == "__main__":
 
 
 
-
+	resultoutdict = {}
 	for file in os.listdir(testDir):
 		filedir = testDir+file
 		testformatstr =''
@@ -79,5 +101,14 @@ if __name__ == "__main__":
 		inputfile.close()
 		thisline = testformatstr.split()
 		if thisline != '\n':
-			resultFile.write(file+' ')
-			classifyz(thisline)
+			resultoutdict[file]=0
+			classifyz(file,thisline)
+
+	sortedoutput = sorted(resultoutdict.items(), key=lambda d: d[0])
+	#resultFile.write(str(sortedoutput))
+	# for element in sortedoutput:
+	# 	resultFile.write(str(sortedoutput[element])+'\n')
+	for i in range(0,len(sortedoutput)):
+		resultFile.write(sortedoutput[i][1]+'\n')
+	#CalPredict()
+	resultFile.close()

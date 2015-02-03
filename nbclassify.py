@@ -61,7 +61,8 @@ if __name__ == "__main__":
 	#testDir = 'SPAM_training/'
 	modelfilePath = sys.argv[1]
 	modellist = pickle.load( open( modelfilePath, "rb" ) )
-	output = 'output.txt'
+	classifymode = sys.argv[1].split('.')[0]
+	output = (str(classifymode)+'.out')
 	# testformat = 'testformat.txt'
 	# testformatFile = open(testformat,'w')
 	resultFile = open(output,'w')
@@ -113,5 +114,6 @@ if __name__ == "__main__":
 	# 	resultFile.write(str(sortedoutput[element])+'\n')
 	for i in range(0,len(sortedoutput)):
 		resultFile.write(sortedoutput[i][1]+'\n')
-	CalPredict()
+		
+	#CalPredict()
 	resultFile.close()

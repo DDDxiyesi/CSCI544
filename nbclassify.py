@@ -45,8 +45,11 @@ def CalPredict():
 			if sortedoutput[i][0].split('.')[0] == label:
 				Belong_to_SPAM[label] +=1
 	for label in labeldict:
-		print(str(Predict_CORRECT[label]/Predict_SPAM[label])+str(label))
-		print(str(Predict_CORRECT[label]/Belong_to_SPAM[label])+str(label))
+		if (Predict_SPAM[label] != 0) & (Belong_to_SPAM[label] != 0) & (Predict_CORRECT[label] != 0):
+			print(str(label)+' Precision: '+str(Predict_CORRECT[label]/Predict_SPAM[label]))
+			print(str(label)+' Recall: '+str(Predict_CORRECT[label]/Belong_to_SPAM[label]))
+			print(str(label)+' F-score: '+str(2*((Predict_CORRECT[label]/Predict_SPAM[label]))*(Predict_CORRECT[label]/Belong_to_SPAM[label])/
+												((Predict_CORRECT[label]/Predict_SPAM[label])+(Predict_CORRECT[label]/Belong_to_SPAM[label]))))
 	return
 
 
@@ -110,5 +113,5 @@ if __name__ == "__main__":
 	# 	resultFile.write(str(sortedoutput[element])+'\n')
 	for i in range(0,len(sortedoutput)):
 		resultFile.write(sortedoutput[i][1]+'\n')
-	#CalPredict()
+	CalPredict()
 	resultFile.close()

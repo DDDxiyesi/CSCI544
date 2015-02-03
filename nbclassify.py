@@ -11,9 +11,9 @@ def calPofDgivenC(thisline,label):
 	for letter in thisline:
 		if letter != '\n':
 			if letter not in featuredict:
-				PofDLabel += (math.log(1)-math.log(labelcount[label]+len(featuredict)))
+				PofDLabel += (math.log(1)-math.log(labelcount[label]+len(featuredict)+1))
 			elif label not in featuredict[letter]:
-				PofDLabel += (math.log(1)-math.log(labelcount[label]+len(featuredict)))
+				PofDLabel += (math.log(1)-math.log(labelcount[label]+len(featuredict)+1))
 			else:
 				PofDLabel += featuredict[letter][label]
 	return PofDLabel
@@ -31,10 +31,10 @@ def classifyz(thisline):
 
 
 if __name__ == "__main__":
-	testDir = 'SPAM_test/'
+	testDir = sys.argv[2]
 	#testDir = 'SPAM_dev/'
 	#testDir = 'SPAM_training/'
-	modelfilePath = 'spam.nb'
+	modelfilePath = sys.argv[1]
 	modellist = pickle.load( open( modelfilePath, "rb" ) )
 	output = 'output.txt'
 	# testformat = 'testformat.txt'
@@ -46,7 +46,6 @@ if __name__ == "__main__":
 	labelcount = modellist[1]
 	featuredict = modellist[2]
 
-	thisfile =''
 
 	# for file in os.listdir(testDir):
 	# 	# filedir = testDir+file
@@ -76,7 +75,7 @@ if __name__ == "__main__":
 		inputfile = open(filedir,'r', errors = 'ignore')
 		for line in inputfile:
 			if line != '\n':
-				testformatstr+=(line.rstrip()+' ')
+				testformatstr+=(line.rstrip().lower()+' ')
 		inputfile.close()
 		thisline = testformatstr.split()
 		if thisline != '\n':

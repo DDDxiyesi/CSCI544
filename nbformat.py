@@ -5,28 +5,37 @@ import fnmatch
 
 
 if __name__ == "__main__":
-	rootdir = '/home/yang/Desktop/csci544-hw1/'
-	spamtrainingdir = rootdir+'SPAM_training/'
-	spamtrainingfile = open(rootdir+'spam_training.txt','w')
+	#rootdir = '/home/yang/Desktop/csci544-hw1/'
+	spamtrainingdir = sys.argv[1]
+	spamtrainingfilePath = sys.argv[2]
+	spamtrainingfile = open(spamtrainingfilePath,'w')
 	for file in os.listdir(spamtrainingdir):
-		if fnmatch.fnmatch(file, 'HAM.*'):
-			filedir = spamtrainingdir+file
-			inputfile = open(filedir,'r', errors = 'ignore')
-			spamtrainingfile.write('HAM ')
-			for line in inputfile:
-				if line != '\n':
-					spamtrainingfile.write(line.rstrip()+' ')
-			spamtrainingfile.write('\n')
-			inputfile.close()
-		elif fnmatch.fnmatch(file, 'SPAM.*'):
-			filedir = spamtrainingdir+file
-			inputfile = open(filedir,'r', errors = 'ignore')
-			spamtrainingfile.write('SPAM ')
-			for line in inputfile:
-				if line != '\n':
-					spamtrainingfile.write(line.rstrip()+' ')
-			spamtrainingfile.write('\n')
-			inputfile.close()
+		filedir = spamtrainingdir+file
+		inputfile = open(filedir,'r', errors = 'ignore')
+		spamtrainingfile.write(file.split('.')[0]+' ')
+		for line in inputfile:
+			if line != '\n':
+				spamtrainingfile.write(line.rstrip().lower()+' ')
+		spamtrainingfile.write('\n')
+		inputfile.close()
+		# if fnmatch.fnmatch(file, 'HAM.*'):
+		# 	filedir = spamtrainingdir+file
+		# 	inputfile = open(filedir,'r', errors = 'ignore')
+		# 	spamtrainingfile.write('HAM ')
+		# 	for line in inputfile:
+		# 		if line != '\n':
+		# 			spamtrainingfile.write(line.rstrip()+' ')
+		# 	spamtrainingfile.write('\n')
+		# 	inputfile.close()
+		# elif fnmatch.fnmatch(file, 'SPAM.*'):
+		# 	filedir = spamtrainingdir+file
+		# 	inputfile = open(filedir,'r', errors = 'ignore')
+		# 	spamtrainingfile.write('SPAM ')
+		# 	for line in inputfile:
+		# 		if line != '\n':
+		# 			spamtrainingfile.write(line.rstrip()+' ')
+		# 	spamtrainingfile.write('\n')
+		# 	inputfile.close()
 	spamtrainingfile.close()
 	# spamtrainingfile = spamtrainingfile = open(rootdir+'spam_training.txt','r')
 	# s = spamtrainingfile.read()

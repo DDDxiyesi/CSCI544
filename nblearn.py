@@ -9,7 +9,6 @@ def write2txt():
 		# for feature in featuredic:
 		# 	if label not in featuredic[feature]:
 		# 		featuredic[feature][label] = 0
-		labelsum = 0
 		# modelfilePath = 'model2.txt'
 		# modelfile2 = open(modelfilePath,'w')
 		# modelfile2.write(str(classdic)+'\n')
@@ -18,17 +17,7 @@ def write2txt():
 		# 	modelfile2.write(str(feature)+' ')
 		# 	modelfile2.write(str(featuredic[feature]))
 		# 	modelfile2.write('\n')
-		for label in classdic:
-			labelsum += classdic[label]
-		#print(labelsum)
-		for label in classdic:
-			classdic[label] = math.log(classdic[label])-math.log(labelsum)
-		for feature in featuredic:
-			for label in featuredic[feature]:
-				if label in labelcount:
-					featuredic[feature][label] = math.log(featuredic[feature][label]+1)-math.log(labelcount[label]+len(featuredic))
-					# featuredic[feature][label] = (featuredic[feature][label]+1)/(labelcount[label]+len(featuredic))
-					# featuredic[feature][label] = math.log(featuredic[feature][label])
+		
 		modelfile.write(str(classdic)+'\n')
 		modelfile.write(str(labelcount)+'\n')
 		for feature in featuredic:
@@ -48,8 +37,8 @@ def writetobyte():
 
 if __name__ == "__main__":
 	# Initial
-	spamtrainingfilePath = '/home/yang/Desktop/csci544-hw1/spam_training.txt'
-	modelfilepicklePath = 'spam.nb'
+	spamtrainingfilePath = sys.argv[1]
+	modelfilepicklePath = sys.argv[2]
 	spamtrainingfile = open(spamtrainingfilePath,'r')
 	classdic = {}
 	labelcount = {}
@@ -80,14 +69,20 @@ if __name__ == "__main__":
 						featuredic[word][label] += 1
 	#count = 0
 	spamtrainingfile.close()
+	labelsum = 0
+	for label in classdic:
+		labelsum += classdic[label]
+		#print(labelsum)
+	for label in classdic:
+		classdic[label] = math.log(classdic[label])-math.log(labelsum)
+	for feature in featuredic:
+		for label in featuredic[feature]:
+			if label in labelcount:
+				featuredic[feature][label] = math.log(featuredic[feature][label]+1)-math.log(labelcount[label]+len(featuredic)+1)
 
 
 	#write2txt()
 	writetobyte()
-
-
-	
-
 
 	#print(len(featuredic))
 	#print(len(featuredic))

@@ -1,6 +1,7 @@
 import sys
 import math
 import pickle
+import string
 
 def write2txt():
 		modelfilePath = 'model.txt'
@@ -43,20 +44,24 @@ if __name__ == "__main__":
 	classdic = {}
 	labelcount = {}
 	featuredic = {}
+	delset = ('~','!','@','^','*','(',')','_','+','`','-',
+		'=','{','}','[',']',':',';',',','"','.','#')
 	for line in spamtrainingfile:
-		if line != '\n':	
-			string = line
-			label = string.partition(' ')[0]	#find label
+		if line != '\n':
+			line = 	"".join(l for l in line if l not in delset)
+			thestring = line.strip()
+			thestring.lower()
+			label = thestring.partition(' ')[0]	#find label
 			if label not in classdic and label != '\n':
 				labelcount[label] = 0
 				classdic[label] = 1
 			elif label != '\n':
 				classdic[label] +=1
-			thisline = string.split()			#get the line
+			thisline = thestring.split()			#get the line
 			
 			labelcount[label] += len(thisline)-1
 			for i in range(1,len(thisline)):	#from 2nd letter to end of line
-				word = thisline[i]				#the No.i word
+				word = thisline[i]			#the No.i word
 				if word not in featuredic:		#the word not in dic
 					featuredic[word] = {}
 					for label1 in classdic:

@@ -4,6 +4,7 @@ import math
 import sys
 import os
 import os.path
+import string
 
 
 def calPofDgivenC(thisline,label):
@@ -66,7 +67,8 @@ if __name__ == "__main__":
 	# testformat = 'testformat.txt'
 	# testformatFile = open(testformat,'w')
 	resultFile = open(output,'w')
-
+	delset = ('~','!','@','^','*','(',')','_','+','`','-',
+		'=','{','}','[',']',':',';',',','"','.','#')
 	
 	labeldict = modellist[0]
 	labelcount = modellist[1]
@@ -101,6 +103,7 @@ if __name__ == "__main__":
 		inputfile = open(filedir,'r', errors = 'ignore')
 		for line in inputfile:
 			if line != '\n':
+				line = "".join(l for l in line if l not in delset)
 				testformatstr+=(line.rstrip().lower()+' ')
 		inputfile.close()
 		thisline = testformatstr.split()
@@ -115,5 +118,5 @@ if __name__ == "__main__":
 	for i in range(0,len(sortedoutput)):
 		resultFile.write(sortedoutput[i][1]+'\n')
 		
-	#CalPredict()
+	CalPredict()
 	resultFile.close()

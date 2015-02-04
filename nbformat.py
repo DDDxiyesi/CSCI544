@@ -9,7 +9,11 @@ if __name__ == "__main__":
 	spamtrainingdir = sys.argv[1]
 	spamtrainingfilePath = sys.argv[2]
 	spamtrainingfile = open(spamtrainingfilePath,'w')
+	filedict = []
 	for file in os.listdir(spamtrainingdir):
+		filedict.append(file)
+	filesort = sorted(filedict)
+	for file in filesort:
 		filedir = spamtrainingdir+file
 		inputfile = open(filedir,'r', errors = 'ignore')
 		spamtrainingfile.write(file.split('.')[0]+' ')

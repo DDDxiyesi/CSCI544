@@ -59,7 +59,6 @@ if __name__ == "__main__":
 			elif label != '\n':
 				classdic[label] +=1
 			thisline = thestring.split()			#get the line
-			
 			labelcount[label] += len(thisline)-1
 			for i in range(1,len(thisline)):	#from 2nd letter to end of line
 				word = thisline[i]			#the No.i word

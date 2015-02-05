@@ -45,7 +45,8 @@ if __name__ == "__main__":
 	labelcount = {}
 	featuredic = {}
 	delset = ('~','!','@','^','*','(',')','_','+','`','-',
-		'=','{','}','[',']',':',';',',','"','.','#')
+		'=','{','}','[',']',':',';',',','"','.','#',"?")
+	#delset = string.punctuation
 	for line in spamtrainingfile:
 		if line != '\n':
 			line = 	"".join(l for l in line if l not in delset)
@@ -84,7 +85,6 @@ if __name__ == "__main__":
 		for label in featuredic[feature]:
 			if label in labelcount:
 				featuredic[feature][label] = math.log(featuredic[feature][label]+1)-math.log(labelcount[label]+len(featuredic)+1)
-
 
 	#write2txt()
 	writetobyte()

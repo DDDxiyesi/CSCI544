@@ -11,6 +11,7 @@ def calPofDgivenC(thisline,label):
 	PofDLabel = 0.0
 	for letter in thisline:
 		if letter != '\n':
+			letter.lower()
 			if letter not in featuredict:
 				PofDLabel += (math.log(1)-math.log(labelcount[label]+len(featuredict)+1))
 			elif label not in featuredict[letter]:
@@ -68,7 +69,8 @@ if __name__ == "__main__":
 	# testformatFile = open(testformat,'w')
 	resultFile = open(output,'w')
 	delset = ('~','!','@','^','*','(',')','_','+','`','-',
-		'=','{','}','[',']',':',';',',','"','.','#')
+	 	'=','{','}','[',']',':',';',',','"','.','#','?')
+	#delset = string.punctuation
 	
 	labeldict = modellist[0]
 	labelcount = modellist[1]

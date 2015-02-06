@@ -14,7 +14,9 @@ In SVM of part2, I stored the features one by one in dict to format them in incr
 In MegaM of part2, I used non-bernoulli implicit format to imply binary and multiclass. For each feature, I set the initial value as 1.0. I created the model and ran test with binary which had a better result. (A student also said binary has a better result on piazza.)
 
 I chose about adjacent 2500 data form SENTIMENT_training as dev data and delete the same data in training set.
+
 Q1 What are the precision, recall and F-score on the development data for your classifier in part I for each of the two datasets.
+
 A1 For SPAM_dev dataset, the precision of SPAM is 0.9646739130434783
 			 the recall of SPAM is 0.977961432506887
 			 the F-score of SPAM is 0.9712722298221614
@@ -29,6 +31,7 @@ A1 For SPAM_dev dataset, the precision of SPAM is 0.9646739130434783
     		      the POS F-score is 0.7790794979079497
 
 Q2 What are the precision, recall and F-score for your classifier in part II for each of the two datasets.
+
 A2 In SVM: For SPAM_dev dataset, the SPAM precision is 0.9671232876712329
 		   	 the SPAM recall is 0.9724517906336089
 			 the SPAM F-score is 0.9697802197802199
@@ -55,6 +58,7 @@ A2 In SVM: For SPAM_dev dataset, the SPAM precision is 0.9671232876712329
 				        the NEG F-score is 0.8611221647433346
 
 Q3 What happens exactly to precision, recall and F-score in each of the two tasks (on the development data) when only 10% of the training data is used to train the classifiers in part I and part II? Why do you think that is?
+
 A3 I delete 90% files in training set.
    For part 1, in SPAM classification, SPAM precision is 0.6766917293233082
 				 SPAM recall is 0.9917355371900827
@@ -99,4 +103,5 @@ A3 I delete 90% files in training set.
 					  POS F-score: 0.826833073322933
    The accuracy of both decreased about 3%-4%. The decrease is lower than SVM. I think it because I created the model with very big iterations and use binary classification. So the important words can
 have very big weight. And maybe the similar of training set and dev set is another reason. With the similarity the words in training set may also appear in dev set with a similar meaning so that it's easy to classify.
+
    In conlusion, the bigger training set may not be better because the model may be over-fit, and when training, it's better to use training data with different style. And SENTIMENT is more dificlut in text classification than SPAM~

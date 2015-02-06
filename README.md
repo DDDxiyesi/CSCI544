@@ -6,12 +6,12 @@ I used add-one smoothing to avoid 0 in probability which can lead to a bad resul
 I regarded all unknown words as one feature. So the vocabulary increased by 1. And when doing classify, the unknown word has probability of log(1/N+V+1). (Also metioned in class.)
 And I stored the probability in log base to avoid underflow. (Mentioned in class, too.)
 Also, I removed some symbols like `,#,^,*,(,),etc in spam model but restored them in sentiment model because I found without puctuations, spam model could have a higher accuarcy without considering puntuations while sentiment couldn't.
-I also tried only consider the feature with length greater than 1. which turned out better in sentiment but worse in spam.
+I also tried only consider features with length greater than 1. which turned out better in sentiment but worse in spam.
 And I tried to remove the digits, but turned out no differnce...
 
 In SVM of part2, I stored the features one by one in dict to format them in increasing order and choose the tf-idf value of the word as its character since it has a better result than frequency of the word in one document. The tf-idf was mentioned in class.
 
-In MegaM of part2, I used non-bernoulli implicit format to imply binary and multiclass. For each feature, I set the initial value as 1.0. I created the model and ran test with binary which had a better result. (A student also said binary has a better result on piazza.)
+In MegaM of part2, I used non-bernoulli implicit format to imply binary and multiclass. For each feature, I set the initial value as 1.0.(I asked professor what value we should use, and he said 1.0 is fine unless you can find a better one. I tried the length of feature, the frequency and some other value, but no one is better than 1.0. Maybe it's because MegaM is like perception, it changed the weight by iteration.) I created the model and ran test with binary which had a better result. (A student also said binary has a better result on piazza.)
 
 I chose about adjacent 2500 data form SENTIMENT_training as dev data and delete the same data in training set.
 

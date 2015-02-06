@@ -1,26 +1,17 @@
 02/05/2015
 Yang Liu
 
-The files and code in top root consist a classifier based on Naive Bayes.
-The file in part2 directory are models and outputs of SVM and MegaM.
-Here are the instructions to run the code of NB-classifier:
-	1. Pull all the files in a folder.
-	2. If you want to make a new model, copy your training data in a folder. Else skip to step 4.
-	3. Open terminal run python3 nbformat.py THE_FOLDER_OF_TRAINING_DATA 			  		THE_TRAINING_FILE_NAME_AFTER_FORMATTING to get a training file(like spam_training.txt).
-	4. Run python3 nblearn.py THE_TRAINING_FILE_NAME_AFTER_FORMATTING MODEL_FILE to create a 		model file(like spam.nb, sentiment.nb).
-	5. Run python3 nbclassify.py MODEL_FILE TEST_DATA_FOLDER to get an output.txt, and each line 		in it is a label.
-	6. If you want to evaluate the classifier, the function in nbclassify.py called "CalPredict" 		can help you. It's in line 118.
-
-I used dictionary to store characters of features to speed up the program in part1.
-I used add-one smoothing to avoid 0 in probability which can lead to a bad result.
-I regarded all unknown words as one feature. So the vocabulary increased by 1. And when doing classify, the unknown word has probability of log(1/N+V+1).
-And I stored the probability in log base to avoid underflow.
+I used dictionary to store characters of features to speed up the program in part1. (In class, this has been mentioned by Prof. Sagae.)
+I used add-one smoothing to avoid 0 in probability which can lead to a bad result. (Also mentioned in class.)
+I regarded all unknown words as one feature. So the vocabulary increased by 1. And when doing classify, the unknown word has probability of log(1/N+V+1). (Also metioned in class.)
+And I stored the probability in log base to avoid underflow. (Mentioned in class, too.)
 Also, I removed some symbols like `,#,^,*,(,),etc in spam model but restored them in sentiment model because I found without puctuations, spam model could have a higher accuarcy without considering puntuations while sentiment couldn't.
 I also tried only consider the feature with length greater than 1. which turned out better in sentiment but worse in spam.
+And I tried to remove the digits, but turned out no differnce...
 
-In SVM of part2, I stored the features one by one in dict to format them in increasing order and choose the tf-idf value of the word as its character.
+In SVM of part2, I stored the features one by one in dict to format them in increasing order and choose the tf-idf value of the word as its character since it has a better result than frequency of the word in one document. The tf-idf was mentioned in class.
 
-In MegaM of part2, I used non-bernoulli implicit format to imply binary and multiclass. For each feature, I set the initial value as 1.0. I created the model and ran test with binary which had a better result.
+In MegaM of part2, I used non-bernoulli implicit format to imply binary and multiclass. For each feature, I set the initial value as 1.0. I created the model and ran test with binary which had a better result. (A student also said binary has a better result on piazza.)
 
 I chose about adjacent 2500 data form SENTIMENT_training as dev data and delete the same data in training set.
 Q1 What are the precision, recall and F-score on the development data for your classifier in part I for each of the two datasets.
